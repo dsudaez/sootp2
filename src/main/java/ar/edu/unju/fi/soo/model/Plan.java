@@ -7,6 +7,18 @@ public class Plan {
     private Vehicle vehicle;
     private Client client;
     private List<Fee> fees = new ArrayList<Fee>();
+    
+    public List<Fee> getUnpaidFees() {
+        List<Fee> unpaidFees = new ArrayList<Fee>();
+
+        for (Fee fee : fees) {
+            if (!fee.isPaid()) {
+                unpaidFees.add(fee);
+            }
+        }
+
+        return unpaidFees;
+    }
 
     public Vehicle getVehicle() {
         return vehicle;

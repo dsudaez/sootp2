@@ -8,6 +8,14 @@ public class Fee {
     private Date dueDate;
     private Date paymentDate;
 
+    public boolean isPaid() {
+        return paymentDate != null;
+    }
+
+    public void pay() {
+        paymentDate = new Date();
+    }
+
     public int getNumber() {
         return number;
     }
@@ -39,5 +47,4 @@ public class Fee {
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
-
 }
