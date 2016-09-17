@@ -3,7 +3,7 @@ package ar.edu.unju.fi.soo.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plan {
+public abstract class Plan {
     private Vehicle vehicle;
     private Client client;
     private List<Fee> fees = new ArrayList<Fee>();
@@ -19,6 +19,10 @@ public class Plan {
 
         return unpaidFees;
     }
+
+    public abstract void generateFees();
+
+    public abstract Double calculateChargeToPay();
 
     public Vehicle getVehicle() {
         return vehicle;
