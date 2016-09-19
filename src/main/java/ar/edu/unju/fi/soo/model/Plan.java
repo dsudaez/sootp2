@@ -29,7 +29,20 @@ public abstract class Plan {
 		return (Date) calendar.getTime();
 	}
 
-	public abstract void generateFees(int feesAmount);
+	public void generateFees(int feesAmount) {
+		if ((feesAmount >= 60) && (feesAmount <= 80)) {
+			Double vehiclePrice = getAmountToFinance();
+			Date feeDueDate = new Date();
+
+			for (int i = 0; i < feesAmount; i++) {
+				Fee feeToAdd = new Fee(i, vehiclePrice, feeDueDate);
+				this.fees.add(feeToAdd);
+				feeDueDate = getNextDueDate(feeDueDate);
+			}
+		}
+	}
+
+	public abstract Double getAmountToFinance();
 
 	public abstract Double calculateChargeToPay();
 
