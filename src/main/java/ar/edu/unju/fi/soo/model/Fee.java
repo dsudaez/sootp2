@@ -8,11 +8,19 @@ public class Fee {
     private Date dueDate;
     private Date paymentDate;
 
+    
     public boolean isPaid() {
         return paymentDate != null;
     }
 
-    public void pay() {
+    public Fee(int number, double amount, Date dueDate) {
+		super();
+		this.number = number;
+		this.amount = amount;
+		this.dueDate = dueDate;
+	}
+
+	public void pay() {
         paymentDate = new Date();
     }
 
