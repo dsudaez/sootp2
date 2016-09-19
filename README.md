@@ -53,7 +53,7 @@ los planes.
 
 
 ## Diagrama de Clases
-[Alt text](docs/DiagramaDeClases.png?raw=true "Diagrama de Clases")
+![Alt text](docs/DiagramaDeClases.png?raw=true "Diagrama de Clases")
 
 ## Integrantes
 
