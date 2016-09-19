@@ -10,15 +10,16 @@ public abstract class Plan {
 	protected Client client;
 	protected List<Fee> fees = new ArrayList<Fee>();
 
-	public Plan() {
-	}
+	public Plan(Vehicle vehicle, Client client, int fees) {
+		if (vehicle == null || client == null) {
+			throw new IllegalArgumentException("Debe especificarse un vehiculo y un cliente.");
+		}
 
-	public Plan(Vehicle vehicle, Client client, int feesAmount) {
 		this.vehicle = vehicle;
 		this.client = client;
-		generateFees(feesAmount);
+		generateFees(fees);
 	}
-	
+
 	public List<Fee> getUnpaidFees() {
 		List<Fee> unpaidFees = new ArrayList<Fee>();
 		for (Fee fee : fees) {
@@ -26,18 +27,17 @@ public abstract class Plan {
 				unpaidFees.add(fee);
 			}
 		}
-        return unpaidFees;
-    }
-	
-    public void payNextFee(){
-    	for (Fee fee: fees){
-    		if (!fee.isPaid()){
-    			fee.pay();
-    			return;
-    		}
-    	}
-    }
-   
+		return unpaidFees;
+	}
+
+	public void payNextFee() {
+		for (Fee fee : fees) {
+			if (!fee.isPaid()) {
+				fee.pay();
+				return;
+			}
+		}
+	}
 
 	public Date getNextDueDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
@@ -46,16 +46,19 @@ public abstract class Plan {
 		return (Date) calendar.getTime();
 	}
 
-	public void generateFees(int feesAmount) {
-		if ((feesAmount >= 60) && (feesAmount <= 80)) {
-			Double vehiclePrice = getAmountToFinance();
-			Date feeDueDate = new Date();
+	public void generateFees(int feesQuantity) {
+		if (feesQuantity != 60 && feesQuantity != 80) {
+			throw new IllegalArgumentException("El numero de cuotas es invalido.");
+		}
 
-			for (int i = 0; i < feesAmount; i++) {
-				Fee feeToAdd = new Fee(i, vehiclePrice, feeDueDate);
-				this.fees.add(feeToAdd);
-				feeDueDate = getNextDueDate(feeDueDate);
-			}
+		Double vehiclePrice = getAmountToFinance();
+		Double feeAmount = vehiclePrice / feesQuantity;
+		Date feeDueDate = new Date();
+
+		for (int i = 0; i < feesQuantity; i++) {
+			feeDueDate = getNextDueDate(feeDueDate);
+			Fee feeToAdd = new Fee(i, feeAmount, feeDueDate);
+			this.fees.add(feeToAdd);
 		}
 	}
 

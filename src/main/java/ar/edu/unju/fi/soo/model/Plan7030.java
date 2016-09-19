@@ -4,10 +4,6 @@ import java.util.List;
 
 public class Plan7030 extends Plan {
 
-	public Plan7030() {
-		super();
-	}
-
 	public Plan7030(Vehicle vehicle, Client client, int feesAmount) {
 		super(vehicle, client, feesAmount);
 	}

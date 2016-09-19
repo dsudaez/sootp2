@@ -5,10 +5,6 @@ import java.util.List;
 
 public class PlanRegular extends Plan {
 
-	public PlanRegular() {
-		super();
-	}
-
 	public PlanRegular(Vehicle vehicle, Client client, int feesAmount) {
 		super(vehicle, client, feesAmount);
 	}
