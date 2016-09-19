@@ -3,48 +3,61 @@ package ar.edu.unju.fi.soo.model;
 import java.util.Date;
 
 public class Fee {
-    private int number;
-    private double amount;
-    private Date dueDate;
-    private Date paymentDate;
+	private int number;
+	private double amount;
+	private Date dueDate;
+	private Date paymentDate;
 
-    public boolean isPaid() {
-        return paymentDate != null;
-    }
+	public boolean isPaid() {
+		return paymentDate != null;
+	}
 
-    public void pay() {
-        paymentDate = new Date();
-    }
+	public Fee(int number, double amount, Date dueDate) {
+		super();
+		this.number = number;
+		this.amount = amount;
+		this.dueDate = dueDate;
+	}
 
-    public int getNumber() {
-        return number;
-    }
+	public void pay() {
+		paymentDate = new Date();
+	}
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+	public int getNumber() {
+		return number;
+	}
 
-    public double getAmount() {
-        return amount;
-    }
+	public void setNumber(int number) {
+		this.number = number;
+	}
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+	public double getAmount() {
+		return amount;
+	}
 
-    public Date getDueDate() {
-        return dueDate;
-    }
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
+	public Date getDueDate() {
+		return dueDate;
+	}
 
-    public Date getPaymentDate() {
-        return paymentDate;
-    }
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
 
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Fee [number=" + number + ", amount=" + amount + ", dueDate=" + dueDate + ", paymentDate=" + paymentDate
+				+ "]";
+	}
 }

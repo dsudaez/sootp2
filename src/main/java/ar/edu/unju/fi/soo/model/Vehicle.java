@@ -11,4 +11,8 @@ public class Vehicle {
         this.value = value;
     }
 
+	@Override
+	public String toString() {
+		return "Vehicle [value=" + value + "]";
+	}
 }

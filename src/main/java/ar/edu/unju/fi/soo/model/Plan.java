@@ -1,24 +1,34 @@
 package ar.edu.unju.fi.soo.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public abstract class Plan {
-    private Vehicle vehicle;
-    private Client client;
-    private List<Fee> fees = new ArrayList<Fee>();
-    
-    public List<Fee> getUnpaidFees() {
-        List<Fee> unpaidFees = new ArrayList<Fee>();
+	protected Vehicle vehicle;
+	protected Client client;
+	protected List<Fee> fees = new ArrayList<Fee>();
 
-        for (Fee fee : fees) {
-            if (!fee.isPaid()) {
-                unpaidFees.add(fee);
-            }
-        }
+	public Plan() {
+	}
 
+	public Plan(Vehicle vehicle, Client client, int feesAmount) {
+		this.vehicle = vehicle;
+		this.client = client;
+		generateFees(feesAmount);
+	}
+	
+	public List<Fee> getUnpaidFees() {
+		List<Fee> unpaidFees = new ArrayList<Fee>();
+		for (Fee fee : fees) {
+			if (!fee.isPaid()) {
+				unpaidFees.add(fee);
+			}
+		}
         return unpaidFees;
     }
+	
     public void payNextFee(){
     	for (Fee fee: fees){
     		if (!fee.isPaid()){
@@ -27,32 +37,58 @@ public abstract class Plan {
     		}
     	}
     }
-    public abstract void generateFees();
+   
 
-    public abstract Double calculateChargeToPay();
+	public Date getNextDueDate(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_YEAR, 30);
+		return (Date) calendar.getTime();
+	}
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
+	public void generateFees(int feesAmount) {
+		if ((feesAmount >= 60) && (feesAmount <= 80)) {
+			Double vehiclePrice = getAmountToFinance();
+			Date feeDueDate = new Date();
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
+			for (int i = 0; i < feesAmount; i++) {
+				Fee feeToAdd = new Fee(i, vehiclePrice, feeDueDate);
+				this.fees.add(feeToAdd);
+				feeDueDate = getNextDueDate(feeDueDate);
+			}
+		}
+	}
 
-    public Client getClient() {
-        return client;
-    }
+	public abstract Double getAmountToFinance();
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+	public abstract Double calculateChargeToPay();
 
-    public List<Fee> getFees() {
-        return fees;
-    }
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
 
-    public void setFees(List<Fee> fees) {
-        this.fees = fees;
-    }
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public List<Fee> getFees() {
+		return fees;
+	}
+
+	public void setFees(List<Fee> fees) {
+		this.fees = fees;
+	}
+
+	@Override
+	public String toString() {
+		return "Plan [vehicle=" + vehicle + ", client=" + client + ", fees=" + fees + "]";
+	}
 }
