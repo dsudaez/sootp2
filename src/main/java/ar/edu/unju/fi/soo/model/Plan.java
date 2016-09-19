@@ -19,7 +19,14 @@ public abstract class Plan {
 
         return unpaidFees;
     }
-
+    public void payNextFee(){
+    	for (Fee fee: fees){
+    		if (!fee.isPaid()){
+    			fee.pay();
+    			return;
+    		}
+    	}
+    }
     public abstract void generateFees();
 
     public abstract Double calculateChargeToPay();
