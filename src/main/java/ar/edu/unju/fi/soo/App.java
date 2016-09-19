@@ -70,25 +70,27 @@ public class App {
 		System.out.println("---------------------");
 		// Cantidad total que la agencia tiene por cobrar por todos los planes
 		System.out.println("Por cobrar de todos los planes: " + numberFormat.format(agency.getMoneyReceivable()));
-		System.out.println("Cliente que menos debe: " + agency.getLeastDebtor());
+		System.out.println("Cliente que menos debe es: " + agency.getLeastDebtor());
 
 		// Buscamos un plan a partir del nombre de un cliente
+		System.out.println("Buscamos un plan a partir del nombre de un cliente...");
 		Plan plan = agency.findPlanByClientName("David");
 
 		if (plan != null) {
 			List<Fee> unpaidFees = plan.getUnpaidFees();
-			System.out.println("La cantidad de cuotas que faltan pagar son " + unpaidFees.size());
+			System.out.println("La cantidad de cuotas que le faltan pagar son " + unpaidFees.size());
 
 			System.out.println("---------------------");
 			System.out.println("Pagamos una cuota.");
 			plan.payNextFee();
+
+			System.out.println("El cliente que menos debe ahora es: " + agency.getLeastDebtor());
 
 			List<Fee> unpaidFeesAfterPay = plan.getUnpaidFees();
 			System.out.println("La cantidad de cuotas que faltan pagar ahora son " + unpaidFeesAfterPay.size());
 
 			// Cantidad total que la agencia tiene por cobrar por todos los planes
 			System.out.println("Por cobrar de todos los planes: " + numberFormat.format(agency.getMoneyReceivable()));
-			System.out.println("Cliente que menos debe: " + agency.getLeastDebtor());
 		}
 	}
 }
