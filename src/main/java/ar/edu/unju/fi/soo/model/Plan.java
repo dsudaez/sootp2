@@ -10,6 +10,15 @@ public abstract class Plan {
 	protected Client client;
 	protected List<Fee> fees = new ArrayList<Fee>();
 
+	public Plan() {
+	}
+
+	public Plan(Vehicle vehicle, Client client, int feesAmount) {
+		this.vehicle = vehicle;
+		this.client = client;
+		generateFees(feesAmount);
+	}
+
 	public List<Fee> getUnpaidFees() {
 		List<Fee> unpaidFees = new ArrayList<Fee>();
 
