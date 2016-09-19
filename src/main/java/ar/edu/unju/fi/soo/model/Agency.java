@@ -6,6 +6,15 @@ import java.util.List;
 public class Agency {
 	private List<Plan> plans = new ArrayList<Plan>();
 
+	public Plan findPlanByClientName(String clientName) {
+		for(Plan plan : plans) {
+			if (clientName.equalsIgnoreCase(plan.client.getName())) {
+				return plan;
+			}
+		}
+		return null;
+	}
+
 	public Double getMoneyReceivable() {
 		Double moneyReceivable = 0.0;
 		for (Plan plan : plans) {
