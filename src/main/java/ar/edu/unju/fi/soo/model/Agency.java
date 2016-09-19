@@ -24,14 +24,16 @@ public class Agency {
 		return selectedPlan.getClient();
 	}
 
-	public void createPlan7030(Vehicle vehicle, Client client, int feesAmount) {
+	public Plan7030 createPlan7030(Vehicle vehicle, Client client, int feesAmount) {
 		Plan7030 plan = new Plan7030(vehicle, client, feesAmount);
 		plans.add(plan);
+		return plan;
 	}
 
-	public void createPlanRegular(Vehicle vehicle, Client client, int feesAmount) {
+	public PlanRegular createPlanRegular(Vehicle vehicle, Client client, int feesAmount) {
 		PlanRegular plan = new PlanRegular(vehicle, client, feesAmount);
 		plans.add(plan);
+		return plan;
 	}
 
 	public List<Plan> getPlans() {

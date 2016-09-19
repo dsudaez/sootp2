@@ -1,10 +1,9 @@
 package ar.edu.unju.fi.soo;
 
-import java.util.Iterator;
-
 import ar.edu.unju.fi.soo.model.Agency;
 import ar.edu.unju.fi.soo.model.Client;
 import ar.edu.unju.fi.soo.model.Plan;
+import ar.edu.unju.fi.soo.model.PlanRegular;
 import ar.edu.unju.fi.soo.model.Vehicle;
 
 /**
@@ -12,6 +11,30 @@ import ar.edu.unju.fi.soo.model.Vehicle;
  *
  */
 public class App {
+	Agency agency = new Agency();
+
+	public void addSamplePlanRegular() {
+		Vehicle chevroletCamaro = new Vehicle();
+		chevroletCamaro.setValue(1285000.0);
+
+		Client client = new Client();
+		client.setName("Jorge");
+		int feesAmount = 78;
+
+		PlanRegular plan = agency.createPlanRegular(chevroletCamaro, client, feesAmount);
+	}
+
+	public void addSamplePlan7030() {
+		Vehicle fordMustang = new Vehicle();
+		fordMustang.setValue(1250000.0);
+
+		Client client = new Client();
+		client.setName("Debi");
+		int feesAmount = 78;
+
+		agency.createPlanRegular(fordMustang, client, feesAmount);
+	}
+	
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
 		Agency agency = new Agency();
