@@ -3,6 +3,7 @@ package ar.edu.unju.fi.soo;
 import ar.edu.unju.fi.soo.model.Agency;
 import ar.edu.unju.fi.soo.model.Client;
 import ar.edu.unju.fi.soo.model.Plan;
+import ar.edu.unju.fi.soo.model.Plan7030;
 import ar.edu.unju.fi.soo.model.PlanRegular;
 import ar.edu.unju.fi.soo.model.Vehicle;
 
@@ -12,27 +13,34 @@ import ar.edu.unju.fi.soo.model.Vehicle;
  */
 public class App {
 	Agency agency = new Agency();
+	Vehicle chevroletCamaro = new Vehicle(1285000d);
+	Vehicle fordMustang = new Vehicle(1250000d);
+	Vehicle fordFocus = new Vehicle(425000d);
 
 	public void addSamplePlanRegular() {
-		Vehicle chevroletCamaro = new Vehicle();
-		chevroletCamaro.setValue(1285000.0);
-
 		Client client = new Client();
 		client.setName("Jorge");
 		int feesAmount = 78;
 
 		PlanRegular plan = agency.createPlanRegular(chevroletCamaro, client, feesAmount);
+		plan.payNextFee();
 	}
 
 	public void addSamplePlan7030() {
-		Vehicle fordMustang = new Vehicle();
-		fordMustang.setValue(1250000.0);
-
 		Client client = new Client();
 		client.setName("Debi");
-		int feesAmount = 78;
+		int feesAmount = 80;
 
-		agency.createPlanRegular(fordMustang, client, feesAmount);
+		Plan7030 plan = agency.createPlan7030(fordMustang, client, feesAmount);
+		plan.payNextFee();
+	}
+
+	public void addSamplePlan60() {
+		Client client = new Client("Ezequiel", "Jujuy");
+		int feesAmount = 60;
+
+		Plan7030 plan = agency.createPlan7030(fordFocus, client, feesAmount);
+		plan.payNextFee();
 	}
 	
 	public static void main(String[] args) {
