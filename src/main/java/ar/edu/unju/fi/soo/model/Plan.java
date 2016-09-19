@@ -79,4 +79,8 @@ public abstract class Plan {
 		this.fees = fees;
 	}
 
+	@Override
+	public String toString() {
+		return "Plan [vehicle=" + vehicle + ", client=" + client + ", fees=" + fees + "]";
+	}
 }
