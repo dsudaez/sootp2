@@ -55,9 +55,11 @@ los planes.
 ## Diagrama de Clases
 ![Alt text](docs/DiagramaDeClases.png?raw=true "Diagrama de Clases")
 
+---
+
 ## Integrantes
 
-Ezquiel Montes   https://github.com/ezetarg
-Debora Sudañez   https://github.com/dsudaez
-Jorge Riera      https://github.com/jorgex9
+* Ezquiel Montes   https://github.com/ezetarg
+* Debora Sudañez   https://github.com/dsudaez
+* Jorge Riera      https://github.com/jorgex9
 
