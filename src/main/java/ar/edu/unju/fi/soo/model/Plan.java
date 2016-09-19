@@ -92,6 +92,6 @@ public abstract class Plan {
 
 	@Override
 	public String toString() {
-		return "Plan [vehicle=" + vehicle + ", client=" + client + ", fees=" + fees + "]";
+		return "Plan [vehicle=" + vehicle + ", client=" + client + ", fees=" + fees.size() + "]";
 	}
 }
