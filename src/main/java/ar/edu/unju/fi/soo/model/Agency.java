@@ -12,24 +12,32 @@ public class Agency {
          moneyReceivable += plan.calculateChargeToPay();
         }
         return moneyReceivable;
-       }
+    }
        
     public Client getLeastDebtor(){
         Plan selectedPlan = plans.get(0);
         for (Plan plan : plans){
          if (plan.calculateChargeToPay() < selectedPlan.calculateChargeToPay()){
-          selectedPlan = plan; 
+          selectedPlan = plan;
          }
         }
         return selectedPlan.getClient();
-       }
-    
-    public void createPlan7030 (){
-    	
     }
     
-    public void createPlanRegular (){
-    	
+    public void createPlan7030 (Vehicle vehicle, Client client, int feesAmount){
+    	Plan7030 plan = new Plan7030();
+    	plan.setClient(client);
+    	plan.setVehicle(vehicle);
+    	plan.generateFees();
+    	plans.add(plan);
+    }
+    
+    public void createPlanRegular (Vehicle vehicle, Client client, int feesAmount){
+    	PlanRegular plan = new PlanRegular();
+    	plan.setClient(client);
+    	plan.setVehicle(vehicle);
+    	plan.generateFees();
+    	plans.add(plan);
     }
 
     public List<Plan> getPlans() {
