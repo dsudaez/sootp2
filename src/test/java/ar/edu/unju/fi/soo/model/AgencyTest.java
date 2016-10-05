@@ -54,4 +54,17 @@ public class AgencyTest extends TestCase {
         assertEquals(expectedLeastDebtorClient.getName(), clientFound.getName());
         assertEquals(expectedLeastDebtorClient, clientFound);
     }
+     public void testPayNextFee(){
+    	 String clientName = "nombre test";
+    	 
+    	 Client client = new Client(clientName,"");
+    	 Plan plan = new PlanRegular(new Vehicle(240000d), client, 80);
+
+    	 plan.payNextFee();
+    	 boolean expected = true;
+         
+         assertEquals(expected, plan.fees.get(0).isPaid());
+             	
+     }
+     
 }
