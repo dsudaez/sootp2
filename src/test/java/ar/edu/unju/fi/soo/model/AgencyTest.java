@@ -3,6 +3,8 @@ package ar.edu.unju.fi.soo.model;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AgencyTest extends TestCase {
@@ -106,6 +108,34 @@ public class AgencyTest extends TestCase {
     	  assertEquals(expectantFeeAmount, plan.fees.get(0).getAmount());
     	  assertEquals(expectantFeeQuantity, plan.fees.size());
     	      	  
+      }
+      
+      public void testPayFeeDate(){
+    	  String clientName = "nombre test";
+    	  
+    	  Client client = new Client(clientName,"");
+    	  Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
+    	  plan.payNextFee();
+    	  
+    	  Calendar date = Calendar.getInstance();
+    	  date.add(Calendar.DATE, 60);
+    	  
+    	  Date expectanDate = (Date) date.getTime();
+    	  assertEquals(expectanDate.getYear(), plan.fees.get(1).getDueDate().getYear());
+    	  assertEquals(expectanDate.getMonth(), plan.fees.get(1).getDueDate().getMonth());
+    	  assertEquals(expectanDate.getDate(), plan.fees.get(1).getDueDate().getDate());
+      }
+      
+      public void testDueDateFees(){
+    	  String clientName = "nombre test";
+    	  
+    	  Client client = new Client(clientName,"");
+    	  Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
+    	  
+    	  int expectantDiffDate = 30;
+    	  
+    	  assertEquals(expectantDiffDate, (plan.fees.get(2).getDueDate().getTime() - plan.fees.get(1).getDueDate().getTime()) / 86400000);
+    	  
       }
       
      
