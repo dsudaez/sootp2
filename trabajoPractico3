@@ -1,0 +1,11 @@
+Considerando el caso de estudio del trabajo práctico número 2 diseñe los siguientes test case:
+1. Crear los diferentes planes de financiación
+2. Pagar una cuota
+3. Además debe implementar las pruebas unitarias para los puntos solicitados en el práctico 5:
+● Plan:
+○ cuotasImpagas ​ : retorna una colección de cuotas que aún no han sido pagadas.
+● Agencia:
+○ dineroPorCobrar ​ : retorna la cantidad total que la agencia tiene por cobrar por todos
+los planes.
+○ clienteQueMenosDebe ​ : retorna aquel cliente que tiene la menor deuda.
+4. Agregue todas pruebas unitarias que considere necesario para el modelo que diseñó
