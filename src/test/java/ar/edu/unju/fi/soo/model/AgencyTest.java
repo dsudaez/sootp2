@@ -117,16 +117,14 @@ public class AgencyTest extends TestCase {
     	  Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
     	  plan.payNextFee();
     	  
-    	  Calendar date = Calendar.getInstance();
-    	  date.add(Calendar.DATE, 60);
+    	  Date date = new Date();
+    	  Calendar expectantDate = Calendar.getInstance();
+    	  expectantDate.setTime(date);
     	  
-    	  Date expectanDate = (Date) date.getTime();
-    	  assertEquals(expectanDate.getYear(), plan.fees.get(1).getDueDate().getYear());
-    	  assertEquals(expectanDate.getMonth(), plan.fees.get(1).getDueDate().getMonth());
-    	  assertEquals(expectanDate.getDate(), plan.fees.get(1).getDueDate().getDate());
+    	  assertEquals(expectantDate.getTime(), plan.fees.get(0).getPaymentDate());
       }
       
-      public void testDueDateFees(){
+      public void testDueDateFeesDiff(){
     	  String clientName = "nombre test";
     	  
     	  Client client = new Client(clientName,"");
