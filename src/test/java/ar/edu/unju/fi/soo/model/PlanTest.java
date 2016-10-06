@@ -1,23 +1,25 @@
 package ar.edu.unju.fi.soo.model;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import junit.framework.TestCase;
 
 public class PlanTest extends TestCase {
+	private String clientName = "nombre test";
+	private Vehicle vehicle;
+	private Client client;
+
+	protected void setUp() {
+		vehicle = new Vehicle(240000d);
+		client = new Client(clientName, "");
+	}
 
 	/**
 	 * Test Creación de plan de financiación Regular
 	 */
 	public void testPlanRegular() {
-		String clientName = "nombre test";
-
-		Client client = new Client(clientName, "");
-		Plan plan = new PlanRegular(new Vehicle(240000d), client, 60);
-
 		int expentantFeeQuantity = 60;
-		double expentantFeeAmount = 4000;
+		double expentantFeeAmount = vehicle.getValue() / expentantFeeQuantity;
+
+		Plan plan = new PlanRegular(vehicle, client, expentantFeeQuantity);
 
 		assertEquals(expentantFeeQuantity, plan.fees.size());
 		assertEquals(expentantFeeAmount, plan.fees.get(0).getAmount());
@@ -27,10 +29,7 @@ public class PlanTest extends TestCase {
 	 * Test Creación de plan de financiación 7030
 	 */
 	public void testPlan7030() {
-		String clientName = "nombre test";
-
-		Client client = new Client(clientName, "");
-		Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
+		Plan plan = new Plan7030(vehicle, client, 80);
 
 		int expectantFeeQuantity = 80;
 		double expectantFeeAmount = 2100;
@@ -44,15 +43,11 @@ public class PlanTest extends TestCase {
 	 */
 
 	public void testPayNextFee() {
-		String clientName = "nombre test";
-
-		Client client = new Client(clientName, "");
-		Plan plan = new PlanRegular(new Vehicle(240000d), client, 80);
+		Plan plan = new PlanRegular(vehicle, client, 80);
 
 		plan.payNextFee();
-		boolean expected = true;
 
-		assertEquals(expected, plan.fees.get(0).isPaid());
+		assertTrue(plan.fees.get(0).isPaid());
 
 	}
 
@@ -60,10 +55,7 @@ public class PlanTest extends TestCase {
 	 * Test de listado de cuotas impagas
 	 */
 	public void testUnpaidFees() {
-		String clientName = "nombre test";
-
-		Client client = new Client(clientName, "");
-		Plan plan = new PlanRegular(new Vehicle(240000d), client, 80);
+		Plan plan = new PlanRegular(vehicle, client, 80);
 		plan.payNextFee();
 		plan.payNextFee();
 
@@ -76,32 +68,26 @@ public class PlanTest extends TestCase {
 	 * Test de pago de siguiente cuota.
 	 */
 	public void testPayFeeDate() {
-		String clientName = "nombre test";
+		Plan plan = new Plan7030(vehicle, client, 80);
 
-		Client client = new Client(clientName, "");
-		Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
+		Double expected = plan.calculateChargeToPay();
+
 		plan.payNextFee();
 
-		Date date = new Date();
-		Calendar expectantDate = Calendar.getInstance();
-		expectantDate.setTime(date);
+		Double actual = plan.calculateChargeToPay();
 
-		assertEquals(expectantDate.getTime(), plan.fees.get(0).getPaymentDate());
+		assertTrue(expected > actual);
 	}
 
 	/**
 	 * Test de generacion de
 	 */
-	public void testGenerateFees() {
-		String clientName = "nombre test";
+	public void testDateDifferenceBetweenGeneratedFees() {
+		Plan plan = new Plan7030(vehicle, client, 80);
 
-		Client client = new Client(clientName, "");
-		Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
+		long expectantDiffDate = 30 * 24 * 60 * 60 * 1000l;
 
-		int expectantDiffDate = 30;
-
-		assertEquals(expectantDiffDate, (plan.fees.get(2).getDueDate().getTime() - plan.fees.get(1).getDueDate().getTime()) / 86400000);
-
+		assertEquals(expectantDiffDate, (plan.fees.get(2).getDueDate().getTime() - plan.fees.get(1).getDueDate().getTime()));
 	}
 
 }

@@ -6,16 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AgencyTest extends TestCase {
+	private String clientName = "nombre test";
+	private Agency agency;
+	private Vehicle vehicle;
+
+	protected void setUp() {
+		agency = new Agency();
+		vehicle = new Vehicle(240000d);
+	}
 
 	/**
 	 * Test de buscar un plan por cliente
 	 */
 	public void testFindPlanByClient() {
-		String expectedClientName = "nombre test";
+		String expectedClientName = clientName;
 
-		Agency agency = new Agency();
 		Client client = new Client(expectedClientName, "");
-		Plan plan = new PlanRegular(new Vehicle(240000d), client, 80);
+		Plan plan = new PlanRegular(vehicle, client, 80);
 
 		List<Plan> plans = new ArrayList<Plan>();
 		plans.add(plan);
@@ -31,16 +38,13 @@ public class AgencyTest extends TestCase {
 	 * Test de dinero por cobrar
 	 */
 	public void testMoneyReceivableCalculation() {
-		String clientName = "nombre test";
-
-		Agency agency = new Agency();
 		Client client1 = new Client(clientName + "1", "");
 		Client client2 = new Client(clientName + "2", "");
 
-		agency.createPlan7030(new Vehicle(240000d), client1, 80);
-		agency.createPlan7030(new Vehicle(240000d), client2, 60);
+		agency.createPlan7030(vehicle, client1, 80);
+		agency.createPlan7030(vehicle, client2, 60);
 
-		double expected = 480000d;
+		double expected = vehicle.getValue() * 2;
 
 		assertEquals(expected, agency.getMoneyReceivable());
 	}
@@ -49,9 +53,6 @@ public class AgencyTest extends TestCase {
 	 * Test de Cliente que menos debe
 	 */
 	public void testLeastDebtorClient() {
-		String clientName = "nombre test";
-
-		Agency agency = new Agency();
 		Client expectedLeastDebtorClient = new Client(clientName + "1", "");
 		Client anotherClient = new Client(clientName + "2", "");
 
