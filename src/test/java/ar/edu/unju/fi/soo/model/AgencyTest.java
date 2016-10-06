@@ -3,8 +3,6 @@ package ar.edu.unju.fi.soo.model;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class AgencyTest extends TestCase {
