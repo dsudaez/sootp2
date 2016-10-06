@@ -1,11 +1,17 @@
 package ar.edu.unju.fi.soo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public abstract class Plan {
+	@Id
+	private Long id;
 	protected Vehicle vehicle;
 	protected Client client;
 	protected List<Fee> fees = new ArrayList<Fee>();
@@ -20,6 +26,7 @@ public abstract class Plan {
 		generateFees(fees);
 	}
 
+	@Transient
 	public List<Fee> getUnpaidFees() {
 		List<Fee> unpaidFees = new ArrayList<Fee>();
 		for (Fee fee : fees) {
@@ -39,11 +46,12 @@ public abstract class Plan {
 		}
 	}
 
+	@Transient
 	public Date getNextDueDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 30);
-		return (Date) calendar.getTime();
+		return calendar.getTime();
 	}
 
 	public void generateFees(int feesQuantity) {
@@ -65,6 +73,14 @@ public abstract class Plan {
 	public abstract Double getAmountToFinance();
 
 	public abstract Double calculateChargeToPay();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Vehicle getVehicle() {
 		return vehicle;

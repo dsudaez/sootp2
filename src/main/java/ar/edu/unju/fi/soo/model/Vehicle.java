@@ -1,6 +1,14 @@
 package ar.edu.unju.fi.soo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Vehicle {
+	@Id
+	private Long id;
+	private String model;
+	private String brand;
 	private Double value;
 
 	public Vehicle() {
@@ -18,6 +26,30 @@ public class Vehicle {
 
 	public void setValue(Double value) {
 		this.value = value;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	@Override

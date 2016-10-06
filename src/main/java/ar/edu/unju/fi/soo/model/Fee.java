@@ -1,13 +1,21 @@
 package ar.edu.unju.fi.soo.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Fee {
+	@Id
+	private Long id;
 	private int number;
 	private double amount;
+	@Temporal(TemporalType.DATE)
 	private Date dueDate;
+	@Temporal(TemporalType.DATE)
 	private Date paymentDate;
+	private Plan plan;
 
+	@Transient
 	public boolean isPaid() {
 		return paymentDate != null;
 	}
@@ -21,6 +29,14 @@ public class Fee {
 
 	public void pay() {
 		paymentDate = new Date();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getNumber() {
