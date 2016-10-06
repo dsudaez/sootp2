@@ -9,7 +9,10 @@ import java.util.List;
 
 public class AgencyTest extends TestCase {
 
-    public void testFindPlanByClient() {
+	/**
+	 * Test de buscar un plan por cliente
+	 */
+	public void testFindPlanByClient() {
         String expectedClientName = "nombre test";
 
         Agency agency = new Agency();
@@ -25,7 +28,10 @@ public class AgencyTest extends TestCase {
         assertEquals(planFound.client.getName(), expectedClientName);
         assertEquals(planFound, plan);
     }
-
+    
+    /**
+	 * Test de dinero por cobrar
+	 */
     public void testMoneyReceivableCalculation() {
         String clientName = "nombre test";
 
@@ -41,6 +47,9 @@ public class AgencyTest extends TestCase {
         assertEquals(expected, agency.getMoneyReceivable());
     }
 
+    /**
+	 * Test de Cliente que menos debe
+	 */
     public void testLeastDebtorClient() {
         String clientName = "nombre test";
 
@@ -56,86 +65,5 @@ public class AgencyTest extends TestCase {
         assertEquals(expectedLeastDebtorClient.getName(), clientFound.getName());
         assertEquals(expectedLeastDebtorClient, clientFound);
     }
-    
-     public void testPayNextFee(){
-    	 String clientName = "nombre test";
-    	 
-    	 Client client = new Client(clientName,"");
-    	 Plan plan = new PlanRegular(new Vehicle(240000d), client, 80);
 
-    	 plan.payNextFee();
-    	 boolean expected = true;
-         
-         assertEquals(expected, plan.fees.get(0).isPaid());
-             	
-     }
-      public void testUnpaidFees(){
-    	  String clientName = "nombre test";
-    	  
-    	  Client client = new Client(clientName,"");
-    	  Plan plan = new PlanRegular(new Vehicle(240000d), client, 80);
-    	  plan.payNextFee();
-    	  plan.payNextFee();
-    	  
-    	  int expected = 78;
-    	  
-    	  assertEquals(expected, plan.getUnpaidFees().size());
-      }
-      
-      public void testPlanRegular(){
-    	  String clientName = "nombre test";
-    	  
-    	  Client client = new Client(clientName,"");
-    	  Plan plan = new PlanRegular(new Vehicle(240000d), client, 60);
-    	  
-    	  int expentantFeeQuantity = 60;
-    	  double expentantFeeAmount =  4000;
-    	  
-    	  assertEquals(expentantFeeQuantity, plan.fees.size() );
-    	  assertEquals(expentantFeeAmount, plan.fees.get(0).getAmount());
-    	    	  
-      }
-      
-      public void testPlan7030(){
-    	  String clientName = "nombre test";
-    	  
-    	  Client client = new Client(clientName,"");
-    	  Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
-    	  
-    	  int expectantFeeQuantity = 80;
-    	  double expectantFeeAmount = 2100;
-    	  
-    	  assertEquals(expectantFeeAmount, plan.fees.get(0).getAmount());
-    	  assertEquals(expectantFeeQuantity, plan.fees.size());
-    	      	  
-      }
-      
-      public void testPayFeeDate(){
-    	  String clientName = "nombre test";
-    	  
-    	  Client client = new Client(clientName,"");
-    	  Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
-    	  plan.payNextFee();
-    	  
-    	  Date date = new Date();
-    	  Calendar expectantDate = Calendar.getInstance();
-    	  expectantDate.setTime(date);
-    	  
-    	  assertEquals(expectantDate.getTime(), plan.fees.get(0).getPaymentDate());
-      }
-      
-      public void testDueDateFeesDiff(){
-    	  String clientName = "nombre test";
-    	  
-    	  Client client = new Client(clientName,"");
-    	  Plan plan = new Plan7030(new Vehicle(240000d), client, 80);
-    	  
-    	  int expectantDiffDate = 30;
-    	  
-    	  assertEquals(expectantDiffDate, (plan.fees.get(2).getDueDate().getTime() - plan.fees.get(1).getDueDate().getTime()) / 86400000);
-    	  
-      }
-      
-     
-     
 }
