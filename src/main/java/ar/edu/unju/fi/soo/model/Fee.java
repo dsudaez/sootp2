@@ -1,18 +1,41 @@
 package ar.edu.unju.fi.soo.model;
 
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Fee {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private int number;
-	private double amount;
+
+	@Column(name = "number", nullable = false)
+	private Integer number;
+
+	@Column(name = "amount", nullable = false)
+	private Double amount;
+
 	@Temporal(TemporalType.DATE)
+	@Column(name = "due_date", nullable = false)
 	private Date dueDate;
+
 	@Temporal(TemporalType.DATE)
+	@Column(name = "payment_date", nullable = true)
 	private Date paymentDate;
+
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "PLAN_ID", nullable = false)
 	private Plan plan;
 
 	@Transient
@@ -20,7 +43,7 @@ public class Fee {
 		return paymentDate != null;
 	}
 
-	public Fee(int number, double amount, Date dueDate) {
+	public Fee(Integer number, Double amount, Date dueDate) {
 		super();
 		this.number = number;
 		this.amount = amount;
@@ -39,19 +62,19 @@ public class Fee {
 		this.id = id;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
-	public double getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
@@ -69,6 +92,14 @@ public class Fee {
 
 	public void setPaymentDate(Date paymentDate) {
 		this.paymentDate = paymentDate;
+	}
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
 
 	@Override
