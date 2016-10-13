@@ -23,6 +23,11 @@ public class HibernateUtil {
 	}
 
 	public static Session getSession() {
-		return getSessionFactory().openSession();
+		try {
+			return getSessionFactory().getCurrentSession();
+
+		} catch (Exception e) {
+			return getSessionFactory().openSession();
+		}
 	}
 }
