@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.soo;
 
+import java.util.List;
 
 import org.hibernate.Transaction;
 
@@ -14,10 +15,17 @@ public class AppHibernate {
 		Transaction transaction = HibernateUtil.getSession().beginTransaction();
 
 		ClientDAO clientDAO = new ClientDAOImpl();
-		
-		Client client = new Client("Jorge", "localhost");
-		clientDAO.save(client);
-		
+
+		clientDAO.save(new Client("Debi", "localhost"));
+		clientDAO.save(new Client("Jorge", "localhost"));
+		clientDAO.save(new Client("Ezequiel", "Jujuy"));
+
+		List<Client> clients = clientDAO.list();
+
+		for (Client client : clients) {
+			System.out.println("Client: " + client.getId() + " - " + client.getName() + " - " + client.getAddress());
+		}
+
 		transaction.commit();
 	}
 }
