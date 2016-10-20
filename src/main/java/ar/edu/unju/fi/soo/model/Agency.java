@@ -16,9 +16,9 @@ public class Agency {
 	}
 
 	public Double getMoneyReceivable() {
-		Double moneyReceivable = 0.0;
+		double moneyReceivable = 0d;
 		for (Plan plan : plans) {
-			moneyReceivable += plan.calculateChargeToPay();
+			moneyReceivable = moneyReceivable + plan.calculateChargeToPay();
 		}
 		return moneyReceivable;
 	}

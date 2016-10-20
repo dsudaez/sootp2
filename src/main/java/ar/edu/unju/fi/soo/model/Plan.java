@@ -5,10 +5,44 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "plan")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(value = "plan")
 public abstract class Plan {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@ManyToOne(cascade = { CascadeType.MERGE })
+	@JoinColumn(name = "VEHICLE_ID", nullable = false)
 	protected Vehicle vehicle;
+	@ManyToOne(cascade = { CascadeType.MERGE })
+	@JoinColumn(name = "CLIENT_ID", nullable = false)
 	protected Client client;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "FEE_ID")
 	protected List<Fee> fees = new ArrayList<Fee>();
+
+	public Plan() {
+	}
 
 	public Plan(Vehicle vehicle, Client client, int fees) {
 		if (vehicle == null || client == null) {
@@ -20,6 +54,7 @@ public abstract class Plan {
 		generateFees(fees);
 	}
 
+	@Transient
 	public List<Fee> getUnpaidFees() {
 		List<Fee> unpaidFees = new ArrayList<Fee>();
 		for (Fee fee : fees) {
@@ -39,11 +74,12 @@ public abstract class Plan {
 		}
 	}
 
+	@Transient
 	public Date getNextDueDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 30);
-		return (Date) calendar.getTime();
+		return calendar.getTime();
 	}
 
 	public void generateFees(int feesQuantity) {
@@ -52,6 +88,7 @@ public abstract class Plan {
 		}
 
 		Double vehiclePrice = getAmountToFinance();
+
 		Double feeAmount = vehiclePrice / feesQuantity;
 		Date feeDueDate = new Date();
 
@@ -65,6 +102,14 @@ public abstract class Plan {
 	public abstract Double getAmountToFinance();
 
 	public abstract Double calculateChargeToPay();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Vehicle getVehicle() {
 		return vehicle;
