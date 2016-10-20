@@ -15,7 +15,7 @@ public class ClientDAOImplTestCase extends TestCase {
 	}
 
 	public void testCrud() {
-		String name = "Ezequiel";
+		String name = "Ezequiel " + Math.random();
 
 		Client client = new Client(name, "address");
 
@@ -31,7 +31,6 @@ public class ClientDAOImplTestCase extends TestCase {
 
 		// Delete the client found
 		clientDAO.delete(clientFound);
-
 
 		// Find the client by name again
 		Client clientNotFound = clientDAO.findByName(name);

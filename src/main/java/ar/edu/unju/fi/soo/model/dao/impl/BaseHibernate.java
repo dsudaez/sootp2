@@ -35,11 +35,13 @@ public class BaseHibernate<T, ID extends Serializable> implements BaseDAO<T, ID>
 	@Override
 	public void save(T object) {
 		getSession().saveOrUpdate(object);
+		getSession().flush();
 	}
 
 	@Override
 	public void delete(T object) {
 		getSession().delete(object);
+		getSession().flush();
 	}
 
 	@Override
