@@ -11,21 +11,35 @@ import ar.edu.unju.fi.soo.util.HibernateUtil;
 
 public class AppHibernate {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
-		Transaction transaction = HibernateUtil.getSession().beginTransaction();
+		try {
+			System.out.println("Hello World!");
+			Transaction transaction = HibernateUtil.getSession().beginTransaction();
 
-		ClientDAO clientDAO = new ClientDAOImpl();
+			try {
 
-		clientDAO.save(new Client("Debi", "localhost"));
-		clientDAO.save(new Client("Jorge", "localhost"));
-		clientDAO.save(new Client("Ezequiel", "Jujuy"));
+				ClientDAO clientDAO = new ClientDAOImpl();
 
-		List<Client> clients = clientDAO.list();
+				clientDAO.save(new Client("Debi", "localhost"));
+				clientDAO.save(new Client("Jorge", "localhost"));
+				clientDAO.save(new Client("Ezequiel", "Jujuy"));
 
-		for (Client client : clients) {
-			System.out.println("Client: " + client.getId() + " - " + client.getName() + " - " + client.getAddress());
+				List<Client> clients = clientDAO.list();
+
+				for (Client client : clients) {
+					System.out.println(
+							"Client: " + client.getId() + " - " + client.getName() + " - " + client.getAddress());
+				}
+
+				transaction.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				transaction.rollback();
+			}
+		} finally {
+			try {
+				HibernateUtil.getSessionFactory().close();
+			} catch (Exception e2) {
+			}
 		}
-
-		transaction.commit();
 	}
 }
