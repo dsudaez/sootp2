@@ -9,6 +9,7 @@ import ar.edu.unju.fi.soo.model.Client;
 import ar.edu.unju.fi.soo.model.Fee;
 import ar.edu.unju.fi.soo.model.Plan;
 import ar.edu.unju.fi.soo.model.Vehicle;
+import ar.edu.unju.fi.soo.util.HibernateUtil;
 
 /**
  * Hello world!
@@ -92,5 +93,7 @@ public class App {
 			// Cantidad total que la agencia tiene por cobrar por todos los planes
 			System.out.println("Por cobrar de todos los planes: " + numberFormat.format(agency.getMoneyReceivable()));
 		}
+
+		HibernateUtil.getSession();
 	}
 }
