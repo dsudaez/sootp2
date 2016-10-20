@@ -53,4 +53,8 @@ public class BaseHibernate<T, ID extends Serializable> implements BaseDAO<T, ID>
 		Criteria criteria = getSession().createCriteria(clazz);
 		return criteria.list();
 	}
+
+	public Criteria createCriteria() {
+		return getSession().createCriteria(clazz);
+	}
 }
