@@ -5,20 +5,27 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import ar.edu.unju.fi.soo.model.dao.BaseDAO;
-import ar.edu.unju.fi.soo.util.HibernateUtil;
 
 public class BaseHibernate<T, ID extends Serializable> implements BaseDAO<T, ID> {
-	private Session session;
 	private Class<T> clazz;
+
+	@Inject
+	private SessionFactory sessionFactory;
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@SuppressWarnings("unchecked")
 	public BaseHibernate() {
 		super();
-		session = HibernateUtil.getSession();
 
 		ParameterizedType gen = (ParameterizedType) this.getClass().getGenericSuperclass();
 		Type[] typeArguments = gen.getActualTypeArguments();
@@ -29,19 +36,17 @@ public class BaseHibernate<T, ID extends Serializable> implements BaseDAO<T, ID>
 	}
 
 	public Session getSession() {
-		return session;
+		return sessionFactory.getCurrentSession();
 	}
 
 	@Override
 	public void save(T object) {
 		getSession().saveOrUpdate(object);
-		getSession().flush();
 	}
 
 	@Override
 	public void delete(T object) {
 		getSession().delete(object);
-		getSession().flush();
 	}
 
 	@Override
@@ -52,8 +57,7 @@ public class BaseHibernate<T, ID extends Serializable> implements BaseDAO<T, ID>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> list() {
-		Criteria criteria = getSession().createCriteria(clazz);
-		return criteria.list();
+		return createCriteria().list();
 	}
 
 	public Criteria createCriteria() {

@@ -1,19 +1,30 @@
 package ar.edu.unju.fi.soo.dao.impl;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
+import javax.inject.Inject;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unju.fi.soo.model.Client;
 import ar.edu.unju.fi.soo.model.dao.ClientDAO;
-import ar.edu.unju.fi.soo.model.dao.impl.ClientDAOImpl;
-import junit.framework.TestCase;
 
-public class ClientDAOImplTestCase extends TestCase {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:test-context.xml" })
+@Transactional
+public class ClientDAOImplTestCase {
+	@Inject
 	private ClientDAO clientDAO;
 
-	protected void setUp() {
-		clientDAO = new ClientDAOImpl();
-	}
-
+	@Test
 	public void testCrud() {
 		String name = "Ezequiel " + Math.random();
 
@@ -38,6 +49,7 @@ public class ClientDAOImplTestCase extends TestCase {
 		assertNull(clientNotFound);
 	}
 
+	@Test
 	public void testSaveAndList() {
 		// List all the clients
 		List<Client> clients = clientDAO.list();
