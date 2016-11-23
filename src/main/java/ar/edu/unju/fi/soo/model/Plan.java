@@ -40,6 +40,7 @@ public abstract class Plan {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "FEE_ID")
 	protected List<Fee> fees = new ArrayList<Fee>();
+	private Date createDate;
 
 	public Plan() {
 	}
@@ -51,6 +52,7 @@ public abstract class Plan {
 
 		this.vehicle = vehicle;
 		this.client = client;
+		this.createDate = new Date();
 		generateFees(fees);
 	}
 
@@ -138,5 +140,13 @@ public abstract class Plan {
 	@Override
 	public String toString() {
 		return "Plan [vehicle=" + vehicle + ", client=" + client + ", fees=" + fees.size() + "]";
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 }

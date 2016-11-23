@@ -13,6 +13,7 @@ public class Vehicle {
 	private String model;
 	private String brand;
 	private Double value;
+	private String code;
 
 	public Vehicle() {
 		super();
@@ -57,5 +58,13 @@ public class Vehicle {
 	@Override
 	public String toString() {
 		return "Vehicle [value=" + value + "]";
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }
