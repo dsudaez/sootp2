@@ -12,6 +12,7 @@ public class Client {
 	private Long id;
 	private String name;
 	private String address;
+	private String dni;
 
 	public Client() {
 		super();
@@ -50,6 +51,14 @@ public class Client {
 	@Override
 	public String toString() {
 		return "Client [name=" + name + ", address=" + address + "]";
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 }

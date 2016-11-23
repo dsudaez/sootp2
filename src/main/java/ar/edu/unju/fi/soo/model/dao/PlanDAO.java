@@ -7,6 +7,6 @@ import ar.edu.unju.fi.soo.model.Plan;
 public interface PlanDAO extends BaseDAO<Plan, Long> {
 
 	List<Plan> findAllByClientName(String clientName);
-	
 	void payNextFee(long id);
+	List<Plan> findAllByClientDNI(String planType, String dni);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unju.fi.soo.model.Fee;
 import ar.edu.unju.fi.soo.model.Plan;
+import ar.edu.unju.fi.soo.model.Plan7030;
 import ar.edu.unju.fi.soo.model.dao.PlanDAO;
 
 @Repository
@@ -35,6 +36,22 @@ public class PlanDAOImpl extends BaseHibernate<Plan, Long> implements PlanDAO {
 				fee.pay();
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Plan> findAllByClientDNI(String planType, String clientDNI) {
+		Criteria criteria = createCriteria();
+//		getSession().createCriteria(Plan7030.class);
+		criteria.createAlias("client", "client");
+		criteria.add(Restrictions.eq("client.dni", clientDNI));
+		if (planType!=null) {
+//			getSession().createCriteria(Plan7030.class);
+
+			criteria.add(Restrictions.eq("class",planType));
+		}
+		
+		return criteria.list();
 	}
 
 }
