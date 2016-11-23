@@ -48,7 +48,7 @@ public class PlanDAOImpl extends BaseHibernate<Plan, Long> implements PlanDAO {
 		if (planType != null && planType != "") {
 			criteria.add(Restrictions.eq("class",planType));
 		}
-		
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 	}
 

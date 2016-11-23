@@ -85,7 +85,7 @@ public abstract class Plan {
 	}
 
 	public void generateFees(int feesQuantity) {
-		if (feesQuantity >= 60 && feesQuantity <= 80) {
+		if (feesQuantity < 60 && feesQuantity > 80) {
 			throw new IllegalArgumentException("El numero de cuotas es invalido.");
 		}
 
@@ -97,6 +97,7 @@ public abstract class Plan {
 		for (int i = 0; i < feesQuantity; i++) {
 			feeDueDate = getNextDueDate(feeDueDate);
 			Fee feeToAdd = new Fee(i, feeAmount, feeDueDate);
+			feeToAdd.setPlan(this);
 			this.fees.add(feeToAdd);
 		}
 	}

@@ -43,6 +43,9 @@ public class Fee {
 		return paymentDate != null;
 	}
 
+	public Fee() {
+	}
+
 	public Fee(Integer number, Double amount, Date dueDate) {
 		super();
 		this.number = number;
