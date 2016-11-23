@@ -85,7 +85,7 @@ public abstract class Plan {
 	}
 
 	public void generateFees(int feesQuantity) {
-		if (feesQuantity != 60 && feesQuantity != 80) {
+		if (feesQuantity >= 60 && feesQuantity <= 80) {
 			throw new IllegalArgumentException("El numero de cuotas es invalido.");
 		}
 
