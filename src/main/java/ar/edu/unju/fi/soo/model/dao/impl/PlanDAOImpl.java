@@ -19,8 +19,6 @@ public class PlanDAOImpl extends BaseHibernate<Plan, Long> implements PlanDAO {
 		Criteria criteria = createCriteria();
 		criteria.createAlias("client", "client");
 		criteria.add(Restrictions.eq("client.name", clientName));
-//		criteria.setMaxResults(1);
-//		return (Plan) criteria.uniqueResult();
 		return criteria.list();
 	}
 

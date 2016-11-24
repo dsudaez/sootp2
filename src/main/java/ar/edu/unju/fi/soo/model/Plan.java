@@ -19,7 +19,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -39,7 +42,9 @@ public abstract class Plan {
 	protected Client client;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "FEE_ID")
+	@OrderBy("number")
 	protected List<Fee> fees = new ArrayList<Fee>();
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 
 	public Plan() {
